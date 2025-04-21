@@ -9,14 +9,19 @@ By using data published by the FCC as well as some open source tools, we can lea
 
 ### Hardware
 I am using the following pieces of hardware for this research:
-* NooElec NESDR Mini 2+ (RTL-SDR)
+* NooElec NESDR Smart (RTL-SDR)
 * Generic UHF monopole antenna from Amazon
+
+<img src="docs/sdr-dongle.png" width="600">
+
 * My car key
 
+<img src="docs/key-fob.png" width="600">
+
 ### Software
-* GNURadio - implementing the final decoding pipeline
-* Universal Radio Hacker - reverse engineering the protocol
-* SDR++ - roughly searching for the fob's signal
+* [GNURadio](https://www.gnuradio.org/) - implementing the final decoding pipeline
+* [Universal Radio Hacker](https://github.com/jopohl/urh)- reverse engineering the protocol
+* [SDR++](https://github.com/AlexandreRouma/SDRPlusPlus) - roughly searching for the fob's signal
 * Python - data processing, GNURadio extensions
 
 ## Part 1: Background
@@ -44,7 +49,11 @@ of harmonics being kicked off by the key fob's transmitter as well.
 
 Eventually I remembered that the FCC actually keeps records of all of the little RF knick-knacks like my key,
 *and* I remembered that all devices have to display their FCC ID. Sure enough, there it was, on the bottom of my key.
-It's a little hard to read, but under a microscope I got it: [M3N5WY8145](https://fccid.io/M3N5WY8145). In the FCC filing was the exact frequency, 313.850 MHz, and sure enough when I tried it in SDR++ I saw the following:
+It's a little hard to read, but under a microscope I got it: [M3N5WY8145](https://fccid.io/M3N5WY8145).
+
+<img src="docs/fcc-id.png" width="600">
+
+ In the FCC filing was the exact frequency, 313.850 MHz, and sure enough when I tried it in SDR++ I saw the following:
 
 <img src="docs/sdr_capture.png" width="600">
 
