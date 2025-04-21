@@ -46,14 +46,33 @@ Eventually I remembered that the FCC actually keeps records of all of the little
 *and* I remembered that all devices have to display their FCC ID. Sure enough, there it was, on the bottom of my key.
 It's a little hard to read, but under a microscope I got it: [M3N5WY8145](https://fccid.io/M3N5WY8145). In the FCC filing was the exact frequency, 313.850 MHz, and sure enough when I tried it in SDR++ I saw the following:
 
-
 <img src="docs/sdr_capture.png" width="600">
 
 There's our data! We can see the real and imaginary parts of the signal above and below our center frequency,
-and three distinct "packets" of communication. Let's move over to GNURadio.
+and three distinct "packets" of communication. 
 
 ## Part 3: Universal Radio Hacker
-Now that I knew where my signal was, I needed to figure out how it was encoded and what datarate it was. I considered developing a tool in GNURadio to do this, but I 
+Now that I knew where my signal was, I needed to figure out how it was encoded and what datarate it was. I considered developing a tool in GNURadio to do this, but I did some digging to try to find other tools that would work and stumbled upon [Universal Radio Hacker](https://github.com/jopohl/urh). This tool is specifically designed for reverse engineering radio protocols, and features basically all of the tools I would need to be able to figure out how my car key is communicating with the car. 
+
+I started out by using URH to capture a transmit keypress, shown below. 
+
+<img src="docs/urh_capture.png" width="600">
+
+Here, you can distinctly see the two different frequencies transmitted by the key which is pretty neat, 
+and running URH's analyzer feature gives us another important piece of information: the number of samples per symbol period.
+It discovered that there are 900 SDR samples per bit time, which works out to a baud rate of about 2.275kBaud.
+I'm guessing that this number is probably slightly off, but tuning the samples/symbol number in both GNURadio and URH didn't
+provide a noticeable improvement in the decoding of the signal, instead just throwing it off if the samples/symbol became far
+enough from the baseline.
 
 ## Part 4: GNURadio 
-The first thing to do was to determine the kind of encoding that the signal used.
+Now that we know the encoding is BFSK at around 2.275kBaud, we can build a simple GNURadio flowgraph to decode it. 
+
+<img src="docs/flowgraph.png" width = "600">
+
+I started out with a Soapy RTLSDR source that would allow me to connect my SDR to GNURadio, 
+and set the center frequency to the 313.85MHz that I previously found with the FCC filing.
+I then used a Frequency XLating FIR filter to "channelize" the signal into the bandwidth that it actually takes up,
+and a squelch to remove the background when not transmitting. The block that does most of the heavy lifting in this setup is
+the Quadrature Demod block that takes the I/Q signal from the SDR and converts it into a single ended floating point signal.
+I then resample this, slice it into a binary on-off signal, and finally output it to a Qt time series sink. 
