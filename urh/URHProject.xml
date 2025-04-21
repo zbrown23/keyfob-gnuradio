@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<UniversalRadioHackerProject description="" collapse_project_tabs="0" modulation_was_edited="0" broadcast_address_hex="ffff">
+  <modulators>
+    <modulator carrier_freq_hz="40000.0" carrier_amplitude="1.0" carrier_phase_deg="0.0" samples_per_symbol="100" name="Modulator" gauss_bt="0.5" gauss_filter_width="1.0" sample_rate="None" modulation_type="ASK" index="0" parameters="0.0,100.0" bits_per_symbol="1"/>
+  </modulators>
+  <device_conf>
+    <apply_dc_correction>True</apply_dc_correction>
+    <bandwidth>2048000.0</bandwidth>
+    <bias_tee_enabled>False</bias_tee_enabled>
+    <freq_correction>1</freq_correction>
+    <frequency>313850000.0</frequency>
+    <gain>20</gain>
+    <name>RTL-SDR</name>
+    <num_sending_repeats>0</num_sending_repeats>
+    <rx_antenna_index>-1</rx_antenna_index>
+    <rx_baseband_gain>16</rx_baseband_gain>
+    <rx_gain>49</rx_gain>
+    <rx_if_gain>20</rx_if_gain>
+    <sample_rate>2048000.0</sample_rate>
+    <tx_antenna_index>-1</tx_antenna_index>
+    <tx_baseband_gain>16</tx_baseband_gain>
+    <tx_gain>15</tx_gain>
+    <tx_if_gain>20</tx_if_gain>
+  </device_conf>
+  <simulator_rx_conf/>
+  <simulator_tx_conf/>
+  <signal name="lock_button_capture" filename="lock_button_capture.complex16s" samples_per_symbol="900" center="-0.007276226455966632" center_spacing="1" tolerance="8" noise_threshold="3.1623" noise_minimum="-2.7273490719034608" noise_maximum="1.7273490719034608" modulation_type="FSK" sample_rate="2048000.0" pause_threshold="8" message_length_divisor="1" bits_per_symbol="1" costas_loop_bandwidth="0.1">
+    <messages/>
+  </signal>
+  <open_file name="lock_button_capture.complex16s" position="0"/>
+  <signal name="lock_button_capture_2" filename="lock_button_capture_2.complex16s" samples_per_symbol="900" center="-0.02001172925035159" center_spacing="1" tolerance="13" noise_threshold="1.0" noise_minimum="-1.2043446453225375" noise_maximum="0.2043446453225375" modulation_type="FSK" sample_rate="2048000.0" pause_threshold="8" message_length_divisor="1" bits_per_symbol="1" costas_loop_bandwidth="0.1">
+    <messages/>
+  </signal>
+  <open_file name="lock_button_capture_2.complex16s" position="1"/>
+  <signal name="class demo" filename="class demo.complex16s" samples_per_symbol="100" center="0" center_spacing="1" tolerance="5" noise_threshold="1.0" noise_minimum="-1.2043446453225375" noise_maximum="0.2043446453225375" modulation_type="FSK" sample_rate="2048000.0" pause_threshold="8" message_length_divisor="1" bits_per_symbol="1" costas_loop_bandwidth="0.1">
+    <messages/>
+  </signal>
+  <open_file name="class demo.complex16s" position="2"/>
+  <group name="New Group" id="0">
+    <cf_protocol filename="lock_button_capture_2.complex16s"/>
+    <cf_protocol filename="lock_button_capture.complex16s"/>
+    <cf_protocol filename="class demo.complex16s"/>
+  </group>
+  <protocol>
+    <decodings>
+      <decoding>'Non Return To Zero (NRZ)', </decoding>
+      <decoding>'Non Return To Zero + Invert', 'Invert', </decoding>
+      <decoding>'Manchester I', 'Edge Trigger', </decoding>
+      <decoding>'Manchester II', 'Edge Trigger', 'Invert', </decoding>
+      <decoding>'Differential Manchester', 'Edge Trigger', 'Differential Encoding', </decoding>
+    </decodings>
+    <participants/>
+    <messages>
+      <message message_type_id="b8ba3840-4e01-45c3-bce3-4c15da7c817c" modulator_index="0" pause="99581" timestamp="0.01550048828125" decoding_index="0"/>
+      <message message_type_id="3da1b274-d461-4757-aba3-aa37dcdfe173" modulator_index="0" pause="101286" timestamp="0.226392578125" decoding_index="0"/>
+      <message message_type_id="3da1b274-d461-4757-aba3-aa37dcdfe173" modulator_index="0" pause="46264" timestamp="0.3778896484375" decoding_index="0"/>
+      <message message_type_id="b8ba3840-4e01-45c3-bce3-4c15da7c817c" modulator_index="0" pause="99561" timestamp="0.81168505859375" decoding_index="0"/>
+      <message message_type_id="b8ba3840-4e01-45c3-bce3-4c15da7c817c" modulator_index="0" pause="101271" timestamp="1.02256494140625" decoding_index="0"/>
+      <message message_type_id="b8ba3840-4e01-45c3-bce3-4c15da7c817c" modulator_index="0" pause="4988717" timestamp="1.1740595703125" decoding_index="0"/>
+      <message message_type_id="b8ba3840-4e01-45c3-bce3-4c15da7c817c" modulator_index="0" pause="101433" timestamp="1744984958.23519" decoding_index="0"/>
+      <message message_type_id="b8ba3840-4e01-45c3-bce3-4c15da7c817c" modulator_index="0" pause="101265" timestamp="1744984958.4469898" decoding_index="0"/>
+      <message message_type_id="b8ba3840-4e01-45c3-bce3-4c15da7c817c" modulator_index="0" pause="4780126" timestamp="1744984958.5984795" decoding_index="0"/>
+    </messages>
+    <message_types>
+      <message_type name="Default" id="b8ba3840-4e01-45c3-bce3-4c15da7c817c" assigned_by_ruleset="0" assigned_by_logic_analyzer="0">
+        <label name="preamble" start="1" end="173" color_index="0" apply_decoding="True" show="2" display_format_index="0" display_bit_order_index="0" display_endianness="big" fuzz_me="2" fuzz_values="" auto_created="True"/>
+        <label name="synchronization" start="173" end="281" color_index="1" apply_decoding="True" show="2" display_format_index="0" display_bit_order_index="0" display_endianness="big" fuzz_me="2" fuzz_values="" auto_created="True"/>
+        <ruleset mode="0"/>
+      </message_type>
+      <message_type name="Message Type 1.1" id="3da1b274-d461-4757-aba3-aa37dcdfe173" assigned_by_ruleset="0" assigned_by_logic_analyzer="0">
+        <label name="preamble" start="7" end="31" color_index="0" apply_decoding="True" show="2" display_format_index="0" display_bit_order_index="0" display_endianness="big" fuzz_me="2" fuzz_values="" auto_created="True"/>
+        <label name="synchronization" start="31" end="143" color_index="1" apply_decoding="True" show="2" display_format_index="0" display_bit_order_index="0" display_endianness="big" fuzz_me="2" fuzz_values="" auto_created="True"/>
+        <label name="sequence number" start="143" end="159" color_index="2" apply_decoding="True" show="2" display_format_index="3" display_bit_order_index="0" display_endianness="big" fuzz_me="2" fuzz_values="" auto_created="True"/>
+        <label name="sequence number" start="159" end="175" color_index="3" apply_decoding="True" show="2" display_format_index="3" display_bit_order_index="0" display_endianness="big" fuzz_me="2" fuzz_values="" auto_created="True"/>
+        <label name="sequence number" start="175" end="191" color_index="4" apply_decoding="True" show="2" display_format_index="3" display_bit_order_index="0" display_endianness="big" fuzz_me="2" fuzz_values="" auto_created="True"/>
+        <label name="sequence number" start="191" end="207" color_index="5" apply_decoding="True" show="2" display_format_index="3" display_bit_order_index="0" display_endianness="big" fuzz_me="2" fuzz_values="" auto_created="True"/>
+        <ruleset mode="0"/>
+      </message_type>
+    </message_types>
+  </protocol>
+  <simulator_config>
+    <items/>
+  </simulator_config>
+</UniversalRadioHackerProject>
